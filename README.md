@@ -29,3 +29,6 @@ One line of the ```passwords.csv``` contains username and password in the follow
 3. **Login:** Enter your username and password when prompted.
 
 4. **Secret Access:** Upon successful login, view the decrypted contents of the secret file.
+
+
+**Or run the .exe file with all the files in the same directory.**
