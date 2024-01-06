@@ -1,7 +1,7 @@
-#include<stdio.h>
-#include<conio.h>
-#include<string.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -12,7 +12,7 @@ int main()
 start:
     printf("Enter your password : ");
     int i = 0;
-    
+
     while (1)
     {
         ch = getch();
@@ -47,6 +47,8 @@ start:
     if (l == 0)
     {
         printf("\n\n******LOGIN SUCCESSFUL******\n");
+        printf("Press Enter to exit...");
+        getchar(); // Wait for Enter key press
     }
     else
     {
