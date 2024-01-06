@@ -1,6 +1,6 @@
 # Caesar Cipher Login System
 
-This C program is a simple login system using the Caesar cipher for encryption and decryption. It reads username and password from a CSV file ```passwords.csv```.
+This C program is a simple login system using the Caesar cipher for encryption and decryption. It reads username and password from a CSV file ```passwords.csv```. This small project was made to have fun and to practice accessing files in C.
 
 One line of the ```passwords.csv``` contains username and password in the following form: ```username,password```. If the login is successful, user are granted access to view the contents of a secret file ```secret.txt``` after decrypting it using the Caesar cipher.
 
