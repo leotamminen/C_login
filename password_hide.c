@@ -16,14 +16,25 @@ start:
     while (1)
     {
         ch = getch();
+
         if (ch == 13)
         {
             pass[i] = '\0';
             break;
         }
+        else if (ch == 8)  // Handle Backspace
+        {
+            if (i > 0)
+            {
+                i--;
+                printf("\b \b");  // Move the cursor back and erase the character
+            }
+        }
         else
+        {
             pass[i++] = ch;
-        printf("*");
+            printf("*");
+        }
     }
 
     printf("\nYou entered : %s\n", pass);
