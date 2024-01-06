@@ -3,13 +3,22 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MAX_LENGTH 20
+
+// Program reads both username and password from password.txt file, compares them with the user's input.
+// login is allowed only if both match. The program waits for the user to press Enter before exiting.
+
 int main()
 {
     system("cls");
     char ch;
-    char pass[20], saved_pass[20];
+    char username[MAX_LENGTH], pass[MAX_LENGTH], saved_username[MAX_LENGTH], saved_pass[MAX_LENGTH];
 
 start:
+    printf("Enter your username : ");
+    fgets(username, MAX_LENGTH, stdin);
+    username[strcspn(username, "\n")] = '\0';  // Remove the newline character from the username
+
     printf("Enter your password : ");
     int i = 0;
 
@@ -37,7 +46,7 @@ start:
         }
     }
 
-    printf("\nYou entered : %s\n", pass);
+    printf("\nYou entered:\nUsername: %s\nPassword: %s\n", username, pass);
 
     FILE *ptr;
     ptr = fopen("password.txt", "r");
@@ -48,14 +57,15 @@ start:
         exit(1);
     }
 
+    // Read the username and password from the file
+    fscanf(ptr, "%s", saved_username);
     fscanf(ptr, "%s", saved_pass);
     fclose(ptr);
 
-    printf("Password %s\n", saved_pass);
+    int user_cmp = strcmp(username, saved_username);
+    int pass_cmp = strcmp(pass, saved_pass);
 
-    int l = strcmp(pass, saved_pass);
-
-    if (l == 0)
+    if (user_cmp == 0 && pass_cmp == 0)
     {
         printf("\n\n******LOGIN SUCCESSFUL******\n");
         printf("Press Enter to exit...");
@@ -63,7 +73,7 @@ start:
     }
     else
     {
-        printf("\n\n******INCORRECT PASSWORD******\n");
+        printf("\n\n******INCORRECT USERNAME OR PASSWORD******\n");
         goto start;
     }
 
