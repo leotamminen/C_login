@@ -5,14 +5,19 @@
 
 #define MAX_LENGTH 20
 
-// Program reads both username and password from password.txt file, compares them with the user's input.
+// Program reads both username and password from password.txt file, compares them with the user's input. 
 // login is allowed only if both match. The program waits for the user to press Enter before exiting.
+
+typedef struct {
+    char username[MAX_LENGTH];
+    char password[MAX_LENGTH];
+} UserInfo;
 
 int main()
 {
     system("cls");
     char ch;
-    char username[MAX_LENGTH], pass[MAX_LENGTH], saved_username[MAX_LENGTH], saved_pass[MAX_LENGTH];
+    char username[MAX_LENGTH], pass[MAX_LENGTH];
 
 start:
     printf("Enter your username : ");
@@ -49,7 +54,7 @@ start:
     printf("\nYou entered:\nUsername: %s\nPassword: %s\n", username, pass);
 
     FILE *ptr;
-    ptr = fopen("password.txt", "r");
+    ptr = fopen("passwords.csv", "r");
 
     if (ptr == NULL)
     {
@@ -57,23 +62,32 @@ start:
         exit(1);
     }
 
-    // Read the username and password from the file
-    fscanf(ptr, "%s", saved_username);
-    fscanf(ptr, "%s", saved_pass);
+    UserInfo user;
+    int match_found = 0;
+
+    while (fscanf(ptr, "%[^,],%s\n", user.username, user.password) == 2)
+    {
+        if (strcmp(username, user.username) == 0 && strcmp(pass, user.password) == 0)
+        {
+            match_found = 1;
+            break;
+        }
+    }
+
     fclose(ptr);
 
-    int user_cmp = strcmp(username, saved_username);
-    int pass_cmp = strcmp(pass, saved_pass);
-
-    if (user_cmp == 0 && pass_cmp == 0)
+    if (match_found)
     {
         printf("\n\n******LOGIN SUCCESSFUL******\n");
         printf("Press Enter to exit...");
-        getchar(); // Wait for Enter key press
+        while (getchar() != '\n');  // Wait for Enter key press
     }
     else
     {
         printf("\n\n******INCORRECT USERNAME OR PASSWORD******\n");
+        printf("Press Enter to try again...");
+        while (getchar() != '\n');  // Wait for Enter key press
+        system("cls");
         goto start;
     }
 
